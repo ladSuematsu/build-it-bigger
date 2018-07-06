@@ -3,20 +3,21 @@
 buildscript {
     ext {
         // SDK and tools
-        minSdkVersion = 16
-        targetSdkVersion = 27
-        compileSdkVersion = 27
-        buildToolsVersion = '27.0.3'
+        projectMinSdkVersion = 16
+        projectTargetSdkVersion = 27
+        projectCompileSdkVersion = 27
+        projectBuildToolsVersion = '27.0.3'
 
         // App dependencies
-        supportLibraryVersion = '27.1.1'
-        playServicesAdsVersion = '15.0.1'
-        googleApiClientVersion = '1.23.0'
-        googleHttpClientVersion = '1.23.0'
-        jsr305Version = '3.0.1'
+        projectSupportLibraryVersion = '27.1.1'
+        projectPlayServicesAdsVersion = '15.0.1'
+        projectGoogleApiClientVersion = '1.23.0'
+        projectGoogleHttpClientVersion = '1.23.0'
+        projectJsr305Version = '3.0.1'
 
-        junitVersion = '4.12'
-        espressoVersion = '2.2.2'
+        projectJunitVersion = '4.12'
+        projectEspressoVersion = '3.0.2'
+        projectRunnerVersion = '1.0.2'
     }
 
     repositories {
