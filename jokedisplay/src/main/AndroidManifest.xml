@@ -3,7 +3,8 @@
     package="ladsoft.com.jokedisplay">
 
     <application>
-        <activity android:name=".activity.JokeDisplayActivity"></activity>
+        <activity android:name=".activity.JokeDisplayActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

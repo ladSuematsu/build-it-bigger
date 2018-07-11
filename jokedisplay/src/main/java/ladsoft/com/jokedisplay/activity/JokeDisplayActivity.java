@@ -3,6 +3,8 @@ package ladsoft.com.jokedisplay.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import ladsoft.com.jokedisplay.R;
@@ -10,12 +12,18 @@ import ladsoft.com.jokedisplay.R;
 public class JokeDisplayActivity extends AppCompatActivity {
     public static final String EXTRA_PROVIDED_JOKE = "extra_provided_joke";
 
+    private TextView jokeView;
     String providedJoke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke_display);
+
+
+        FrameLayout container = findViewById(R.id.content);
+        getLayoutInflater().inflate(R.layout.joke_container, container, true);
+        jokeView = findViewById(R.id.joke);
 
         loadProvidedJoke();
     }
@@ -29,7 +37,7 @@ public class JokeDisplayActivity extends AppCompatActivity {
 
         String providedJoke = providedIntent.getStringExtra(EXTRA_PROVIDED_JOKE);
         if (providedJoke.isEmpty()) {
-            onProvidedJokeEmptyContent();
+            onProvidedJokeLoadError();
             return;
         }
 
@@ -43,11 +51,7 @@ public class JokeDisplayActivity extends AppCompatActivity {
         finish();
     }
 
-    private void onProvidedJokeEmptyContent() {
-
-    }
-
     private void onLoadProvidedJoke(String joke) {
-
+        jokeView.setText(joke);
     }
 }
