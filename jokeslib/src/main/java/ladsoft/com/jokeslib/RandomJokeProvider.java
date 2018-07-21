@@ -1,10 +1,12 @@
 package ladsoft.com.jokeslib;
 
+import ladsoft.com.jokeslib.entity.Joke;
+
 public class RandomJokeProvider {
 
     public RandomJokeProvider() {}
 
-    public String getRandomJoke() {
-        return "This is a randomly provided joke.";
+    public Joke getRandomJoke() {
+        return new Joke("This is a randomly provided joke.");
     }
 }
