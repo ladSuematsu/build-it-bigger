@@ -1,4 +1,4 @@
-package task;
+package com.udacity.gradle.builditbigger.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,6 +9,7 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
+import com.udacity.gradle.builditbigger.backend.myApi.model.MyBean;
 
 import java.io.IOException;
 
@@ -42,12 +43,11 @@ public class JokeProviderTask extends AsyncTask<Void, Void, String> {
         if (apiService == null) {
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
-//                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                    .setRootUrl("http://localhost/myApi/_ah/myApi")
+                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
-
+                            request.setDisableGZipContent(true);
                         }
                     });
 
@@ -58,7 +58,9 @@ public class JokeProviderTask extends AsyncTask<Void, Void, String> {
 
         String response;
         try {
-            response = apiService.sayHi(name).execute().getData();
+            MyBean requestResponse = apiService.sayHi(name).execute();
+
+            response = requestResponse.toString();
         } catch (IOException e) {
             Log.e(TAG, "Request gone wrong", e);
             response = e.getMessage();
