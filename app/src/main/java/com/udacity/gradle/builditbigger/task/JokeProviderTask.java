@@ -8,14 +8,14 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
-import com.udacity.gradle.builditbigger.backend.myApi.model.MyBean;
+import com.udacity.gradle.builditbigger.backend.jokeApi.JokeApi;
+import com.udacity.gradle.builditbigger.backend.jokeApi.model.MyBean;
 
 import java.io.IOException;
 
 public class JokeProviderTask extends AsyncTask<Void, Void, String> {
     private static final String TAG = "JOKE_TASK";
-    private static MyApi apiService = null;
+    private static JokeApi apiService = null;
 
     private final Context context;
 
@@ -41,7 +41,7 @@ public class JokeProviderTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         if (apiService == null) {
-            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+            JokeApi.Builder builder = new JokeApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
@@ -54,13 +54,11 @@ public class JokeProviderTask extends AsyncTask<Void, Void, String> {
             apiService = builder.build();
         }
 
-        String name = "Anon";
-
         String response;
         try {
-            MyBean requestResponse = apiService.sayHi(name).execute();
+            MyBean requestResponse = apiService.tellJoke().execute();
 
-            response = requestResponse.toString();
+            response = requestResponse.getJoke();
         } catch (IOException e) {
             Log.e(TAG, "Request gone wrong", e);
             response = e.getMessage();
