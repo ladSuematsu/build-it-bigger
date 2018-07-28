@@ -23,10 +23,8 @@ android {
         resolutionStrategy.force "com.android.support:support-annotations:$rootProject.projectSupportLibraryVersion"
         resolutionStrategy.force "com.android.support:support-v4:$rootProject.projectSupportLibraryVersion"
     }
-
     compileSdkVersion rootProject.projectCompileSdkVersion
     buildToolsVersion rootProject.projectBuildToolsVersion
-
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
         minSdkVersion rootProject.projectMinSdkVersion
@@ -43,6 +41,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "appVersion"
+
+    productFlavors {
+        free {
+            dimension "appVersion"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+
+        paid {
+            dimension "appVersion"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+    }
 }
 
 dependencies {
@@ -53,7 +67,6 @@ dependencies {
     implementation "com.google.api-client:google-api-client:$rootProject.projectGoogleApiClientVersion"
     implementation "com.google.http-client:google-http-client-android:$rootProject.projectGoogleHttpClientVersion"
     implementation "com.google.code.findbugs:jsr305:$rootProject.projectJsr305Version"
-
     testImplementation "junit:junit:$rootProject.projectJunitVersion"
     androidTestImplementation "com.android.support.test:runner:$rootProject.projectRunnerVersion"
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.projectEspressoVersion", {

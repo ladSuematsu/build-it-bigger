@@ -66,6 +66,13 @@ public class JokeProviderTask extends AsyncTask<Void, Void, String> {
             response = e.getMessage();
         }
 
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        response = "LOL whut";
+
         return response;
     }
 

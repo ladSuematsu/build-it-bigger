@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.udacity.gradle.builditbigger.task.JokeProviderTask;
@@ -18,7 +19,10 @@ import com.udacity.gradle.builditbigger.task.JokeProviderTask;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+abstract class MainActivityFragmentBase extends Fragment {
+
+    public JokeProviderTask jokeTask;
+    private ProgressBar progressBar;
 
     JokeProviderTask.Callback jokeTaskCallback = new JokeProviderTask.Callback() {
         @Override
@@ -28,10 +32,14 @@ public class MainActivityFragment extends Fragment {
         }
     };
 
-    public JokeProviderTask jokeTask;
-    private ProgressBar progressBar;
+    View.OnClickListener tellJokeListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            fetchJoke();
+        }
+    };
 
-    public MainActivityFragment() {
+    public MainActivityFragmentBase() {
     }
 
     @Override
@@ -44,14 +52,6 @@ public class MainActivityFragment extends Fragment {
         Button tellJoke = root.findViewById(R.id.button_tel_joke);
         tellJoke.setOnClickListener(tellJokeListener);
 
-        AdView mAdView = root.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mAdView.loadAd(adRequest);
         return root;
     }
 
@@ -66,17 +66,14 @@ public class MainActivityFragment extends Fragment {
         super.onPause();
     }
 
-    View.OnClickListener tellJokeListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (jokeTask == null
-                        || jokeTask.getStatus() == AsyncTask.Status.FINISHED
-                        || jokeTask.isCancelled()) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    jokeTask = new JokeProviderTask(getContext());
-                    jokeTask.attach(jokeTaskCallback);
-                    jokeTask.execute();
-                }
-            }
-    };
+    protected void fetchJoke() {
+        if (jokeTask == null
+                || jokeTask.getStatus() == AsyncTask.Status.FINISHED
+                || jokeTask.isCancelled()) {
+            progressBar.setVisibility(View.VISIBLE);
+            jokeTask = new JokeProviderTask(getContext());
+            jokeTask.attach(jokeTaskCallback);
+            jokeTask.execute();
+        }
+    }
 }
