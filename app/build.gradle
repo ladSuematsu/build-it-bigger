@@ -34,6 +34,13 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        // In app ad configs
+        // copied from AdRequest.DEVICE_ID_EMULATOR
+        buildConfigField "String", "AD_TEST_DEVICE", "\"B3EEABB8EE11C2BE770B684D95219ECB\""
+        buildConfigField "String", "INTERSTITIAL_AD_UNIT_ID", "\"/6499/example/interstitial\""
+        resValue "string", "banner_ad_unit_id", "\"/6499/example/banner\""
     }
     buildTypes {
         release {
