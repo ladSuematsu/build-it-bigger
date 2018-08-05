@@ -68,6 +68,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':jokedisplay')
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     implementation "com.android.support:appcompat-v7:$rootProject.projectSupportLibraryVersion"
     implementation "com.google.android.gms:play-services-ads:$rootProject.projectPlayServicesAdsVersion"
@@ -75,9 +76,25 @@ dependencies {
     implementation "com.google.http-client:google-http-client-android:$rootProject.projectGoogleHttpClientVersion"
     implementation "com.google.code.findbugs:jsr305:$rootProject.projectJsr305Version"
     testImplementation "junit:junit:$rootProject.projectJunitVersion"
+
     androidTestImplementation "com.android.support.test:runner:$rootProject.projectRunnerVersion"
+
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.projectEspressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation project(':jokedisplay')
+
+    androidTestImplementation("com.android.support.test.espresso:espresso-intents:$rootProject.projectEspressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    implementation("com.android.support.test.espresso:espresso-idling-resource:$rootProject.projectEspressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.projectEspressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
 }
