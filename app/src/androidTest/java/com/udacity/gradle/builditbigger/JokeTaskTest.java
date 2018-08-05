@@ -2,6 +2,7 @@ package com.udacity.gradle.builditbigger;
 
 
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
@@ -10,6 +11,8 @@ import android.support.test.espresso.intent.matcher.IntentMatchers;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.udacity.gradle.builditbigger.idlingresources.EspressoIdlingResource;
 
 import org.hamcrest.Matchers;
 import org.junit.After;
@@ -28,7 +31,9 @@ public class JokeTaskTest {
 
     @Before
     public void before() {
-
+        Intents.init();
+        IdlingRegistry.getInstance()
+                .register(EspressoIdlingResource.countingIdlingResource);
     }
 
     @Test
@@ -47,6 +52,8 @@ public class JokeTaskTest {
 
     @After
     public void after() {
-
+        IdlingRegistry.getInstance()
+                .unregister(EspressoIdlingResource.countingIdlingResource);
+        Intents.release();
     }
 }
