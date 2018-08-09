@@ -15,6 +15,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.udacity.gradle.builditbigger.task.JokeProviderTask;
+import com.udacity.gradle.builditbigger.task.TaskFactory;
 
 import ladsoft.com.jokedisplay.activity.JokeDisplayActivity;
 
@@ -76,7 +77,7 @@ abstract class MainActivityFragmentBase extends Fragment {
                 || jokeTask.getStatus() == AsyncTask.Status.FINISHED
                 || jokeTask.isCancelled()) {
             progressBar.setVisibility(View.VISIBLE);
-            jokeTask = new JokeProviderTask(getContext());
+            jokeTask = TaskFactory.taskFactory(getContext());
             jokeTask.attach(jokeTaskCallback);
             jokeTask.execute();
         }
