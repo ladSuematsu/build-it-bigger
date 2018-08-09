@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.udacity.gradle.builditbigger.task.JokeProviderTask;
 
+import ladsoft.com.jokedisplay.activity.JokeDisplayActivity;
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -28,7 +31,9 @@ abstract class MainActivityFragmentBase extends Fragment {
         @Override
         public void onRequestResponse(String responseContent) {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(getContext(), responseContent, Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(getContext(), JokeDisplayActivity.class)
+                    .putExtra(JokeDisplayActivity.EXTRA_PROVIDED_JOKE, responseContent));
         }
     };
 

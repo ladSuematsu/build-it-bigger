@@ -1,0 +1,4 @@
+<resources>
+    <string name="empty_content">No jokes for you</string>
+    <string name="provided_joke_load_error">Could not load joke</string>
+</resources>
