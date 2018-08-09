@@ -2,7 +2,10 @@ package ladsoft.com.jokedisplay.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,9 +26,26 @@ public class JokeDisplayActivity extends AppCompatActivity {
 
         FrameLayout container = findViewById(R.id.content);
         getLayoutInflater().inflate(R.layout.joke_container, container, true);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar= getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         jokeView = findViewById(R.id.joke);
 
         loadProvidedJoke();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadProvidedJoke() {
