@@ -46,7 +46,7 @@ public class JokeProviderTask extends AsyncTask<Void, Void, String> {
                     .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
-                        public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
+                        public void initialize(AbstractGoogleClientRequest<?> request) {
                             request.setDisableGZipContent(true);
                         }
                     });
@@ -63,13 +63,6 @@ public class JokeProviderTask extends AsyncTask<Void, Void, String> {
             Log.e(TAG, "Request gone wrong", e);
             response = e.getMessage();
         }
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        response = "LOL whut";
 
         return response;
     }
