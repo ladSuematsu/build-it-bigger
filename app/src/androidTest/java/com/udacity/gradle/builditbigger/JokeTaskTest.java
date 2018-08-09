@@ -3,7 +3,6 @@ package com.udacity.gradle.builditbigger;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingRegistry;
-import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.intent.Intents;
@@ -21,7 +20,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.regex.Matcher;
+import ladsoft.com.jokedisplay.activity.JokeDisplayActivity;
 
 @RunWith(AndroidJUnit4.class)
 public class JokeTaskTest {
@@ -37,17 +36,22 @@ public class JokeTaskTest {
     }
 
     @Test
-    public void test() {
+    public void testNotEmptyJokeContent() {
         Espresso.onView(ViewMatchers.withId(R.id.button_tel_joke))
                 .perform(ViewActions.click());
 
-        // TODO: add idling resources to the async task class
+        Intents.intended(IntentMatchers.hasComponent(JokeDisplayActivity.class.getName()));
+        Intents.intended(IntentMatchers.hasExtra(Matchers.is(
+                                                    JokeDisplayActivity.EXTRA_PROVIDED_JOKE),
+                                                    Matchers.not(Matchers.isEmptyString())
+                                                )
+                                    );
 
-//        Intents.intended(IntentMatchers.hasComponent(.class.getName()));
-//        Intents.intended(IntentMatchers.hasExtra(,));
-
-//        Espresso.onView(ViewMatchers.withId(R.id.joke_text))
-//                .check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(""))));
+        Espresso.onView(ViewMatchers.withId(R.id.joke))
+                .check(ViewAssertions.matches(
+                                            Matchers.not(ViewMatchers.withText(""))
+                                        )
+                                    );
     }
 
     @After
