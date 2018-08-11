@@ -39,3 +39,21 @@ allprojects {
         jcenter()
     }
 }
+
+task runtProjectTests {
+    dependsOn(['startLocalGceServer', 'executeProjectTests', 'stopLocalGceServer'])
+}
+
+task startLocalGceServer {
+    dependsOn ':backend:appengineStart'
+}
+
+task executeProjectTests {
+    dependsOn 'app:connectedAndroidTest'
+    mustRunAfter 'startLocalGceServer'
+}
+
+task stopLocalGceServer {
+    dependsOn ':backend:appengineStop'
+    mustRunAfter 'executeProjectTests'
+}
