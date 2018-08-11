@@ -1,12 +1,32 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext {
+        // SDK and tools
+        projectMinSdkVersion = 16
+        projectTargetSdkVersion = 27
+        projectCompileSdkVersion = 27
+        projectBuildToolsVersion = '27.0.3'
+
+        // App dependencies
+        projectSupportLibraryVersion = '27.1.1'
+        projectPlayServicesAdsVersion = '15.0.1'
+        projectGoogleApiClientVersion = '1.23.0'
+        projectGoogleHttpClientVersion = '1.23.0'
+        projectJsr305Version = '3.0.1'
+
+        projectJunitVersion = '4.12'
+        projectEspressoVersion = '3.0.2'
+        projectRunnerVersion = '1.0.2'
+    }
+
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.google.guava:guava:22.0'
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.google.guava:guava:23.0'
+        classpath 'com.android.tools.build:gradle:3.1.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -15,7 +35,26 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
+}
+
+// Task structure source: https://github.com/kevguy/JokeTellingApp
+task runtProjectTests {
+    dependsOn(['startLocalGceServer', 'executeProjectTests', 'stopLocalGceServer'])
+}
+
+task startLocalGceServer {
+    dependsOn ':backend:appengineStart'
+}
+
+task executeProjectTests {
+    dependsOn 'app:connectedAndroidTest'
+    mustRunAfter 'startLocalGceServer'
+}
+
+task stopLocalGceServer {
+    dependsOn ':backend:appengineStop'
+    mustRunAfter 'executeProjectTests'
 }
