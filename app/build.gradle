@@ -71,6 +71,7 @@ dependencies {
     implementation project(':jokedisplay')
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     implementation "com.android.support:appcompat-v7:$rootProject.projectSupportLibraryVersion"
+    implementation "com.android.support:design:$rootProject.projectSupportLibraryVersion"
     freeImplementation "com.google.android.gms:play-services-ads:$rootProject.projectPlayServicesAdsVersion"
     implementation "com.google.api-client:google-api-client:$rootProject.projectGoogleApiClientVersion"
     implementation "com.google.http-client:google-http-client-android:$rootProject.projectGoogleHttpClientVersion"
