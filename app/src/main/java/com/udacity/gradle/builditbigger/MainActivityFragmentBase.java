@@ -11,9 +11,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.udacity.gradle.builditbigger.task.JokeProviderTask;
 import com.udacity.gradle.builditbigger.task.TaskFactory;
 
