@@ -1,14 +1,8 @@
 package com.udacity.gradle.builditbigger.task;
 
-import android.content.Context;
-
 import com.udacity.gradle.builditbigger.idlingresources.EspressoIdlingResource;
 
 public class TestJokeProviderTask extends JokeProviderTask {
-
-    public TestJokeProviderTask(Context context) {
-        super(context);
-    }
 
     @Override
     protected void onPreExecute() {
@@ -21,4 +15,5 @@ public class TestJokeProviderTask extends JokeProviderTask {
         EspressoIdlingResource.decrement();
         super.onPostExecute(responseContent);
     }
+
 }
